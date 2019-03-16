@@ -55,6 +55,8 @@ def get_prime_factors(num):
                 numToCrunch = int(numToCrunch / i)
                 factorList.append(i)
 
+    # Sort the list just for clarity
+    factorList.sort()
     return factorList
 
 import dbhandler
@@ -63,34 +65,27 @@ def main():
     
     # Take the number as user input; read inputs until got a valid input or interrupt
     num_ok = False
+    n = 0
     while (num_ok == False):
         n = input("Enter a number to be factorized: ")
         num_ok = validate_input(n)
+        n = int(n)
 
     from timeit import default_timer as timer
 
     start = timer()
-    
-    #prime_factors = dbhandler.find_factors_from_database(n)
-    #if (prime_factors == []):
-        # Did not find the factors from database
-        # or there was no database. Better start crunching!
-        
-    num = int(n)
-    prime_factors = get_prime_factors(num)
-
-    # Finally, update the database with the new factors gotten
+            
+    prime_factors = get_prime_factors(n)
     dbhandler.add_to_database(n, prime_factors)
 
-
-    print("Prime factors of " + n + " are: " + str(prime_factors))
+    print("Prime factors of " + str(n) + " are: " + str(prime_factors))
             
     end = timer()
     print("Finding prime factors took %.3f" % (end - start) + " seconds")
 
     # In addition, output the results into a file
     file_out = open("prime_factors_out", "w")
-    file_out.write("Prime factors of " + n + " are: " + str(prime_factors) + "\n")
+    file_out.write("Prime factors of " + str(n) + " are: " + str(prime_factors) + "\n")
     file_out.close()
     
 # Not sure if this is cool but let's do it this way

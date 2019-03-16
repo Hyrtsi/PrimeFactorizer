@@ -23,7 +23,6 @@ def find_factors_from_database(num):
     for line in db_file:
         # Remove newline
         line = line.rstrip()
-        #print(str(line))
         elems = line.split(";")
         if (str(num) == elems[0]):
             # Remove the first element to return only factors
